@@ -36,8 +36,12 @@ mongoose.connection.on('open', function () {
 });
 
 //connect to redis
-let redisClient = redis.createClient({ legacyMode: true });
-redisClient.connect(process.env.SESSIONDB_URL)
+const redisClient = redis.createClient({
+  legacyMode: true,
+  url: process.env.SESSIONDB_URL
+});
+redisClient.on('error', (err) => console.log('Redis Client Error', err));
+redisClient.connect()
   .then(() => console.log("Redis Connection Established...!"))
   .catch((error) => console.log("Error: Redis connection can not be established...!\n", error.message));
 
