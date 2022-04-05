@@ -18,7 +18,7 @@ const commentRouter = require('./routes/commentRouter');
 //connect to DB
 (async () => {
   try {
-    const mongoURI = 'mongodb://localhost:27017/Blog62';
+    const mongoURI = 'mongodb://root:dQRMQPyl9kTfMsjlXPbZE2ke@tommy.iran.liara.ir:33495/my-app?authSource=admin&replicaSet=rs0';
     await mongoose.connect(mongoURI);
     console.log("Database Connection Established...!");
   } catch (error) {
