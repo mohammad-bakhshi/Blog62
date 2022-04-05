@@ -35,17 +35,11 @@ mongoose.connection.on('open', function () {
   console.log("Database Connection Established...!");
 });
 
-let redisClient;
 //connect to redis
-(async () => {
-  try {
-    redisClient = redis.createClient({ legacyMode: true });
-    await redisClient.connect(process.env.SESSIONDB_URL);
-    console.log("Redis Connection Established...!");
-  } catch (error) {
-    console.log("Error: Redis connection can not be established...!\n", error.message);
-  }
-})();
+let redisClient = redis.createClient({ legacyMode: true });
+redisClient.connect(process.env.SESSIONDB_URL)
+  .then(() => console.log("Redis Connection Established...!"))
+  .catch((error) => console.log("Error: Redis connection can not be established...!\n", error.message));
 
 //create admin
 (async () => {
