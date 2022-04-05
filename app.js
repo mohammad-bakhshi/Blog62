@@ -18,15 +18,19 @@ const commentRouter = require('./routes/commentRouter');
 //connect to DB
 (async () => {
   try {
-    const mongoURI = 'mongodb://root:dQRMQPyl9kTfMsjlXPbZE2ke@tommy.iran.liara.ir:33495/my-app?authSource=admin&replicaSet=rs0';
-    await mongoose.connect(mongoURI);
-    console.log("Database Connection Established...!");
+    await mongoose.connect(process.env.DATABASE_URL, {
+      authSource: 'admin'
+    });
   } catch (error) {
     //handle error(task)
     console.log("Error: Database connection can not be established...!\n", error.message);
     process.exit(1);
   }
 })();
+
+mongoose.connection.on('open', function () {
+  console.log("Database Connection Established...!");
+});
 
 //create admin
 (async () => {
