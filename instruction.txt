@@ -1,0 +1,41 @@
+technologies=>node.js,express.js,ejs,mongoose
+entities=>admin,blogger,article
+actions=>
+blogger(done)
+0-home page(backend)(frontend)
+1-sign up(backend)(frontend)
+2-login(backend)(frontend)
+3-blogger profile(backend)
+5-edit profile(backend)(frontend)
+6-edit profile photo(backend)(frontend)
+7-delete account(backend)(frontend)
+8-logout(backend)(frontend)
+9-look blogger's articles(backend)(frontend)
+10-look all articles(backend)
+11-add article(backend)(frontend)
+12-edit article(backend)(frontend)
+13-delete article(backend)(frontend)
+14-read more(backend)(frontend)
+15-comment(backend)(frontend)
+
+
+admin(done)
+1-login(backend)(frontend)
+2-admin profile(backend)(frontend)
+3-look list of bloggers(backend)(frontend)
+4-delete blogger(backend)(frontend)
+5-recover blogger password(backend)(frontend)
+6-look blogger's articles and comments(backend)(frontend)
+8-delete blogger's article(backend)(frontend)
+9-delete blogger's comments(backend)(frontend)
+
+
+1-access pages(done)
+2-delete images(done)
+3-404 page(done)
+
+
+4-error handling
+5-pagination
+
+

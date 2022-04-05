@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/stylesheets/auth.css" />
+  <title><%= title %> </title>
+    <!--
+    - favicon
+  -->
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+  <div class="container">
+    <div class="forms-container">
+      <div class="signin-signup">
+        <form class="sign-up-form" id="updateForm">
+          <h2 class="title">Update Account</h2>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="First name" name="firstname" id="firstname" value="<%= blogger.firstname %> " required minlength="2" maxlength="30"/>
+          </div>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Last name" name="lastname" id="lastname" value="<%= blogger.lastname %> " required minlength="2" maxlength="30"/>
+          </div>
+          <div class="input-field">
+            <i class="fas fa-solid fa-mobile"></i>
+            <input type="text" placeholder="Cell phone" name="cellphone" id="cellphone" value="<%= blogger.cellphone %> " required pattern="[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*" title=""/>
+          </div>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Username" name="username" id="username" value="<%= blogger.username %> " required minlength="6" maxlength="30" />
+          </div>
+          <div class="alert-box failure"></div>
+          <input type="submit" class="btn" value="Update" />
+        </form>
+      </div>
+    </div>
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <img src="/images/auth/signin.svg" class="image" alt="signin" />
+      </div>
+      <div class="panel right-panel">
+        <img src="/images/auth/updateBlogger.svg" class="image" alt="signup" />
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/javascripts/updateBlogger.js"></script>
+</body>
+
+</html>

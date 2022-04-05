@@ -1,0 +1,82 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <%= title %>
+    </title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/stylesheets/readmore.css">
+</head>
+
+<body>
+    <header>
+        <div class="navbar container">
+            <div class="logo" style="display: flex;">
+                <h1>Blog62</h1>
+                    <ul class="nav-list">
+                        <li><a href="/home">Home</a></li>
+                    </ul>
+            </div>
+        </div>
+    </header>
+    <div class="blog-post">
+        <article>
+            <div class="blog-content">
+                <summary>
+                    <h1 style="text-align: center; font-size:50px;">
+                        <%= article.title %>
+                    </h1>
+                    <div class="blog-date">
+                        <%= article.blogger.firstname %>
+                            <%= article.blogger.lastname %>   
+                                <%= article.createdAt.getDate() %>/<%= article.createdAt.getMonth() %>/<%=
+                                            article.createdAt.getFullYear() %>
+                                            <%= article.createdAt.getHours() %>:<%= article.createdAt.getMinutes() %>:
+                                                    <%= article.createdAt.getSeconds() %>
+                    </div>
+                </summary>
+            </div>
+            <div class="blog-content">
+                <%= article.text %>
+            </div>
+        </article>
+    </div><br><br><br>
+    <div class="comment-box">
+        <h2>Comments</h2>
+        <form action="/comment/<%= article._id %> " method="POST">
+            <textarea name="text" placeholder="Type Your Comment..." required></textarea>
+            <button type="submit">Submit Comment</button>
+        </form>
+    </div>
+    <section class="comments_section">
+        <ul class="comment_list">
+            <li>
+                <% comments.forEach(comment=> { %>
+                    <div class="comment_card" data-depth="0">
+                        <figure class="figure">
+                            <img class="image" src="/images/blogger/<%= comment.blogger.avatar %>" alt="avatar" />
+                            <figcaption class="fig_caption">
+                                <h5 class="name">
+                                    <%= comment.blogger.firstname %>
+                                        <%= comment.blogger.lastname %>
+                                </h5>
+                                <p class="date">
+                                    <%= comment.createdAt.getDate() %>/<%= comment.createdAt.getMonth() %>/<%=
+                                                comment.createdAt.getFullYear() %>
+                                                <%= comment.createdAt.getHours() %>:<%= comment.createdAt.getMinutes()
+                                                        %>:<%= comment.createdAt.getSeconds() %>
+                                </p>
+                            </figcaption>
+                        </figure>
+                        <article class="comment_text">
+                            <%= comment.text %>
+                        </article>
+                    </div>
+                    <% }) %>
+            </li>
+        </ul>
+    </section>
+</body>
+
+</html>

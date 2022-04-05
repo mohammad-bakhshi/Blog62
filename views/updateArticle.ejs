@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/stylesheets/addArticle.css" />
+	<title>
+		<%= title %>
+	</title>
+</head>
+
+<body>
+	<div class="container">
+		<div class="contact-box">
+			<div class="left"></div>
+			<div class="right">
+				<h2>Update Article</h2>
+				<input type="text" class="field" placeholder="Title" id="title" required minlength="5" maxlength="20"
+					value="<%= article.title %> ">
+				<input type="file" class="field" name="image" id="image" accept="image" />
+				<textarea placeholder="Text" class="field" id="text" required
+					minlength="10"><%= article.text %></textarea>
+				<button type="button" onclick="updateArticle('<%= article._id %>')" class="btn">Update</button>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="/javascripts/updateArticle.js"></script>
+
+</html>

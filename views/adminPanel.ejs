@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="/stylesheets/adminPanel.css">
+    <!--
+    - favicon
+  -->
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+    <body class="sidebar-is-reduced">
+        <header class="l-header">
+            <div class="l-header__inner clearfix">
+                <div class="c-header-icon js-hamburger">
+                    <div class="hamburger-toggle"><span class="bar-top"></span><span class="bar-mid"></span><span
+                            class="bar-bot"></span></div>
+                </div>
+                <div class="c-header-icon has-dropdown"><span
+                        class="c-badge c-badge--red c-badge--header-icon animated swing">13</span><i
+                        class="fa fa-bell"></i>
+                    <div class="c-dropdown c-dropdown--notifications">
+                        <div class="c-dropdown__header"></div>
+                        <div class="c-dropdown__content"></div>
+                    </div>
+                </div>
+                <div class="c-search">
+                    <input class="c-search__input u-input" placeholder="Search..." type="text" />
+                </div>
+                <div class="header-icons-group">
+                    <div class="c-header-icon basket"><span
+                            class="c-badge c-badge--blue c-badge--header-icon animated swing">4</span><i
+                            class="fa fa-shopping-basket"></i></div>
+                    <a style="color: red;" href="/admin/logout"><div class="c-header-icon logout"><i class="fa fa-power-off"></i></div></a>
+                </div>
+            </div>
+        </header>
+        <div class="l-sidebar">
+            <div class="logo">
+                <div class="logo__txt">D</div>
+            </div>
+            <div class="l-sidebar__content">
+                <nav class="c-menu js-menu">
+                    <ul class="u-list">
+                        <a onclick="showContent('blogger')">
+                            <li class="c-menu__item is-active" data-toggle="tooltip" title="Bloggers">
+                                <div class="c-menu__item__inner"><i class="fa fa-user"></i>
+                                    <div class="c-menu-item__title"><span>Bloggers</span></div>
+                                </div>
+                            </li>
+                        </a>
+                        <a onclick="showContent('article')">
+                            <li class="c-menu__item" data-toggle="tooltip" title="Articles">
+                                <div class="c-menu__item__inner"><i class="far fa-newspaper"></i>
+                                    <div class="c-menu-item__title"><span>Articles</span></div>
+                                </div>
+                            </li>
+                        </a>
+                        <a onclick="showContent('comment')">
+                            <li class="c-menu__item" data-toggle="tooltip" title="Comments">
+                                <div class="c-menu__item__inner"><i class="far fa-comment"></i>
+                                    <div class="c-menu-item__title"><span>Comments</span></div>
+                                </div>
+                            </li>
+                        </a>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </body>
+    <main class="l-main">
+        <div class="content-wrapper content-wrapper--with-bg">
+            <h1 class="page-title">Bloggers</h1>
+            <div class="page-content">
+                <table class="table table-striped table-hover" id="bloggerTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Cell phone</th>
+                            <th>Gender</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% bloggers.forEach(blogger=> { %>
+                            <tr>
+                                <td>
+                                    <%= blogger.firstname %>
+                                        <%= blogger.lastname %>
+                                </td>
+                                <td>
+                                    <%= blogger.username %>
+                                </td>
+                                <td>
+                                    <%= blogger.cellphone %>
+                                </td>
+                                <td>
+                                    <%= blogger.gender %>
+                                </td>
+                                <td>
+                                    <a href="/admin/profile/<%= blogger._id %> "
+                                        class="btn btn-warning reset-password">Reset
+                                        password</a>
+                                    <button onclick="deleteBlogger('<%= blogger._id %>')"
+                                        class="btn btn-danger btnDelete">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+                <table class="table table-striped table-hover" id="articleTable">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Text</th>
+                            <th>Blogger</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% articles.forEach(article=> { %>
+                            <tr>
+                                <td>
+                                    <%= article.title %>
+                                </td>
+                                <td class="truncated">
+                                    <%= article.text %>
+                                </td>
+                                <td>
+                                    <%= article.blogger.username %>
+                                </td>
+                                <td>
+                                    <button onclick="deleteArticle('<%= article.blogger._id %>','<%= article._id %>')"
+                                        class="btn btn-danger btnDelete">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+                <table class="table table-striped table-hover" id="commentTable">
+                    <thead>
+                        <tr>
+                            <th>Text</th>
+                            <th>Blogger</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% comments.forEach(comment=> { %>
+                            <tr>
+                                <td class="truncated">
+                                    <%= comment.text %>
+                                </td>
+                                <td>
+                                    <%= comment.blogger.username %>
+                                </td>
+                                <td>
+                                    <button onclick="deleteComment('<%= comment.blogger._id %>','<%= comment._id %>')"
+                                        class="btn btn-danger btnDelete">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/javascripts/adminPanel.js"></script>
+
+</html>
