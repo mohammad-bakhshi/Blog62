@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const redis = require('redis');
+let RedisStore = require('connect-redis')(session);
 const bcrypt = require('bcryptjs');
 
 const Blogger = require("./models/blogger");
@@ -18,7 +20,8 @@ const commentRouter = require('./routes/commentRouter');
 //connect to DB
 (async () => {
   try {
-    await mongoose.connect(process.env.DATABASE_URL, {
+    const mongoDB_URL = 'mongodb://root:dQRMQPyl9kTfMsjlXPbZE2ke@tommy.iran.liara.ir:33495/my-app?authSource=admin&replicaSet=rs0';
+    await mongoose.connect(process.env.DATABASE_URL || mongoDB_URL, {
       authSource: 'admin'
     });
   } catch (error) {
@@ -31,6 +34,18 @@ const commentRouter = require('./routes/commentRouter');
 mongoose.connection.on('open', function () {
   console.log("Database Connection Established...!");
 });
+
+let redisClient;
+//connect to redis
+(async () => {
+  try {
+    redisClient = redis.createClient({ legacyMode: true });
+    await redisClient.connect(process.env.SESSIONDB_URL);
+    console.log("Redis Connection Established...!");
+  } catch (error) {
+    console.log("Error: Redis connection can not be established...!\n", error.message);
+  }
+})();
 
 //create admin
 (async () => {
@@ -63,15 +78,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
-  secret: "12345",
-  key: "blogger_seed",
-  saveUninitialized: false,
-  resave: false,
-  cookie: {
-    maxAge: 10 * 60 * 1000 // min * second * millisecond
-  }
-}))
+app.use(
+  session({
+    store: new RedisStore({ client: redisClient }),
+    saveUninitialized: false,
+    secret: "12345",
+    key: "blogger_seed",
+    resave: false,
+    cookie: {
+      maxAge: 10 * 60 * 1000 // min * second * millisecond
+    }
+  })
+)
 
 app.use((req, res, next) => {
   if (req.cookies.userSeed && !req.session.user) {
@@ -110,19 +128,5 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
-
-
-// res.status(err.status || 500);
-// console.log(err.code,err.name,err.message);
-// if (err.name === 'ValidationError') {
-//   console.log(err.errors);
-//   return res.status(400).send(err.message);
-// }
-// if (err.status) {
-//   console.log(err.status);
-// }
-// render the error page
-
-
 //entries
 //mongoose error,

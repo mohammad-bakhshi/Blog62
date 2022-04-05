@@ -8,7 +8,6 @@ const updateArticle = (id) => {
         method: 'PUT',
         body: fd
     });
-    console.log('ok');
     fetch(req).then((response) => {
         window.location.href = '/blogger/profile';
     })

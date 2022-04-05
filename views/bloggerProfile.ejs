@@ -99,16 +99,20 @@
             <p class="h3 nav-title">Main Menu</p>
 
             <ul>
-              <li class="nav-item">
-                <a href="#" class="nav-link">Home</a>
+              <li>
+                <a href="/home" class="nav-link">Home</a>
               </li>
 
-              <li class="nav-item">
-                <a href="#" class="nav-link">About Me</a>
+              <li>
+                <a href="/blogger/update" class="nav-link">Edit Profile</a>
               </li>
 
-              <li class="nav-item">
-                <a href="#" class="nav-link">Contact</a>
+              <li>
+                <a href="/article" class="nav-link">Add Article</a>
+              </li>
+
+              <li>
+                <a href="/blogger/logout" class="nav-link">Log out</a>
               </li>
             </ul>
 
@@ -259,8 +263,7 @@
                   </div>
                   <br>
                   <a href="/article/<%= article._id %>" class="btn btn-info">Edit Article</a>
-                  <button onclick="deleteArticle('<%= article._id %>')"
-                    class="btn btn-danger">Delete Article</button>
+                  <button onclick="deleteArticle('<%= article._id %>')" class="btn btn-danger">Delete Article</button>
                 </div>
 
               </div>
