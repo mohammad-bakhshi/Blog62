@@ -36,9 +36,7 @@ let Dashboard = (() => {
 
             $('[data-toggle="tooltip"]').tooltip(global.tooltipOptions);
 
-            $('#articleTable').hide();
-
-            $('#commentTable').hide();
+            
         }
     };
 
