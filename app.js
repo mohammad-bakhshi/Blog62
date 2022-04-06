@@ -8,6 +8,9 @@ const session = require('express-session');
 const redis = require('redis');
 let RedisStore = require('connect-redis')(session);
 const bcrypt = require('bcryptjs');
+const swaggerUI = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
+
 
 const Blogger = require("./models/blogger");
 const authRouter = require('./routes/authRouter');
@@ -16,6 +19,24 @@ const bloggerRouter = require('./routes/bloggerRouter');
 const adminRouter = require('./routes/adminRouter');
 const articleRouter = require('./routes/articleRouter');
 const commentRouter = require('./routes/commentRouter');
+
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Blog62 API",
+      version: "1.0.0"
+    },
+    servers: [
+      {
+        url: "http://localhost:3000"
+      }
+    ]
+  },
+  apis: ["./routes/*.js"]
+}
+
+const specs = swaggerJSDoc(options);
 
 //connect to DB
 (async () => {
@@ -70,7 +91,6 @@ const app = express();
 
 // view engine setup
 app.set('view engine', 'ejs');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -108,6 +128,8 @@ app.use('/article', articleRouter);
 app.use('/admin', adminRouter);
 //use comment router
 app.use('/comment', commentRouter);
+// swagger UI
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
