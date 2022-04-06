@@ -21,8 +21,7 @@ router.delete('/profile/:bloggerId', adminController.delete_blogger);
 //delete blogger's article
 router.delete('/article/:bloggerID/:articleID', adminController.delete_article);
 
-//delete blogger's comment
-router.delete('/comment/:bloggerID/:commentID', adminController.delete_comment);
+
 
 
 
