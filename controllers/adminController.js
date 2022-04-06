@@ -78,10 +78,19 @@ const delete_article = async (req, res, next) => {
     }
 }
 
+// delete blogger's comment
+const delete_comment = async (req, res, error) => {
+    try {
+        const commentId = req.params.commentId;
+        await Comment.findByIdAndDelete(commentId);
+        res.status(200).json({ result: true, message: "Comment successfully deleted." });
+    } catch (error) {
+        next(error)
+    }
+}
 
 
 
 
 
-
-module.exports = { profile_page, reset_password, delete_blogger, logout, delete_article };
+module.exports = { profile_page, reset_password, delete_blogger, logout, delete_article, delete_comment };
