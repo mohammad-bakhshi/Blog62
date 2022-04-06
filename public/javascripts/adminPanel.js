@@ -36,7 +36,9 @@ let Dashboard = (() => {
 
             $('[data-toggle="tooltip"]').tooltip(global.tooltipOptions);
 
-            
+            $("#articleTable").hide();
+
+            $("#commentTable").hide();
         }
     };
 
@@ -78,24 +80,24 @@ const deleteComment = (bloggerID, commentID) => {
 }
 
 const showContent = (content) => {
-switch (content) {
-    case 'blogger':
-        $('.page-title').text("Bloggers");
-        $('#bloggerTable').show();
-        $('#articleTable').hide();
-        $('#commentTable').hide();
-        break;
+    switch (content) {
+        case 'blogger':
+            $('.page-title').text("Bloggers");
+            $('#bloggerTable').show();
+            $('#articleTable').hide();
+            $('#commentTable').hide();
+            break;
         case 'article':
             $('.page-title').text("Articles");
             $('#articleTable').show();
             $('#bloggerTable').hide();
             $('#commentTable').hide();
             break;
-            case 'comment':
-                $('.page-title').text("Comments");
-                $('#commentTable').show();
-                $('#bloggerTable').hide();
-                $('#articleTable').hide();
-        break;
-}
+        case 'comment':
+            $('.page-title').text("Comments");
+            $('#commentTable').show();
+            $('#bloggerTable').hide();
+            $('#articleTable').hide();
+            break;
+    }
 }
